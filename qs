@@ -96,6 +96,12 @@ rubocop_cmd() {
     bundle_exec rubocop $*
 }
 
+rt_cmd() {
+    file=$1
+    shift
+    bundle_exec ruby ./training/$file.rb $*
+}
+
 cmd=$1
 shift
 case "$cmd" in
@@ -141,6 +147,9 @@ case "$cmd" in
     rubocop)
         rubocop_cmd $*
         ;;
+    rt)
+        rt_cmd $*
+        ;;
     *)
         read -d '' help <<-EOF
 Usage: $0 command
@@ -161,6 +170,7 @@ App:
   rake     [args] Run rake command in application container
   bundle   [args] Run bundle command in application container
   rubocop  [args] Run rubocop
+  rt       [args] Run ruby training code
 EOF
         echo "$help"
         exit 2
