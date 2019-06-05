@@ -97,9 +97,24 @@ rubocop_cmd() {
 }
 
 rt_cmd() {
-    file=$1
+    str=$1
     shift
-    bundle_exec ruby ./training/$file.rb $*
+    case "$str" in
+        main)
+            bundle_exec ruby ./training/main.rb $*
+            ;;
+        debug)
+            bundle_exec ruby ./training/debug.rb $*
+            ;;
+        iep)
+            bundle_exec ruby ./training/inheritance.rb $*
+            ;;
+        *)
+            echo "rubyの基本的な用法は mainを指定してください"
+            echo "デバッグを学び開ければ debugを指定してください"
+            echo "include,extend,prependを学び開ければ iepを指定してください"
+            ;;
+    esac
 }
 
 cmd=$1
